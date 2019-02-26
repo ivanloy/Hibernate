@@ -9,7 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Criaturitas")
-public class Criaturita  implements java.io.Serializable {
+public class
+Criaturita  implements java.io.Serializable {
 
     @Id 
 

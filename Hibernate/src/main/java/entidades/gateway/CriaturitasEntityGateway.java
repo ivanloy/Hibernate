@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface CriaturitasEntityGateway {
     public ArrayList<Criaturita> getListadoCriaturitas();
+    public void quitarRegalo(int idRegalo);
 }

@@ -124,7 +124,17 @@ public class Regalo implements Serializable {
     }
 
     @Override
-    public String toString(){
-        return "Regalo: Denominacion: "+denominacion+" Ancho: "+ancho+" Largo: "+alto+" Tipo: "+tipo+" Edad mínima: "+edadMinima+" Precio: "+precio;
+    public String toString() {
+        return "Regalo{" +
+                "id=" + id +
+                ", denominacion='" + denominacion + '\'' +
+                ", ancho=" + ancho +
+                ", largo=" + largo +
+                ", alto=" + alto +
+                ", tipo=" + tipo +
+                ", edadMinima=" + edadMinima +
+                ", precio=" + precio +
+                ", goesTo=" + goesTo +
+                '}';
     }
 }
