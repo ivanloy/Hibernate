@@ -1,6 +1,7 @@
 package external.dal;
 
 import entidades.Criaturita;
+import entidades.Regalo;
 import entidades.gateway.CriaturitasEntityGateway;
 import hibernateutil.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -25,9 +26,9 @@ public class CriaturitasDAO implements CriaturitasEntityGateway {
     public void quitarRegalo(int idRegalo) {
         Transaction transaction = session.beginTransaction();
         try {
-            String hqlQuery = "UPDATE Regalo SET goesTo = null WHERE id = " + idRegalo;
-            Query query = session.createQuery(hqlQuery);
-            System.out.println("res " + query.executeUpdate());
+            Regalo regalo = session.get(Regalo.class, idRegalo);
+            regalo.setGoesTo(null);
+            session.update(regalo);
             transaction.commit();
         }catch (Exception e){
             transaction.rollback();
