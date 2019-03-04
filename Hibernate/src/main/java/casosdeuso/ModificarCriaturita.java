@@ -11,8 +11,13 @@ import javax.inject.Inject;
 public class ModificarCriaturita implements ModificarCriaturitaBoundary {
     private CriaturitasEntityGateway criaturitasEntityGateway;
 
-    public void quitarRegalo(int idRegalo) {
+    public void quitarRegalo(int idRegalo){
         criaturitasEntityGateway.quitarRegalo(idRegalo);
+    }
+
+    @Override
+    public void asignarRegalo(int idCriaturita, int idRegalo) {
+        criaturitasEntityGateway.asignarRegalo(idCriaturita, idRegalo);
     }
 
     @Inject

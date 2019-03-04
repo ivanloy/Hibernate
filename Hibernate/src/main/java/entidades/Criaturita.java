@@ -24,6 +24,10 @@ Criaturita  implements java.io.Serializable {
     public Criaturita() {
     }
 
+    public Criaturita(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Criaturita(byte id) {
         this.id = id;
     }

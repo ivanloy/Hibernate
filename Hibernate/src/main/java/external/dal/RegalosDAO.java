@@ -1,5 +1,6 @@
 package external.dal;
 
+import entidades.Criaturita;
 import entidades.Regalo;
 import entidades.gateway.RegalosEntityGateway;
 import hibernateutil.HibernateUtil;
@@ -23,6 +24,23 @@ public class RegalosDAO implements RegalosEntityGateway {
     public ArrayList<Regalo> getListadoRegalos(int idCriaturita){
         Query query = getQueryListadoRegalos(idCriaturita);
         return new ArrayList<Regalo>(query.list());
+    }
+
+    @Override
+    public void crearRegalo(Regalo regalo) {
+        byte id = (byte)session.createQuery("SELECT MAX(id) FROM Regalo ").uniqueResult();
+        regalo.setId(++id);
+        session.beginTransaction();
+        session.save(regalo);
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public void borrarRegalo(int idRegalo) {
+        session.beginTransaction();
+        Regalo regalo = session.get(Regalo.class, idRegalo);
+        session.delete(regalo);
+        session.getTransaction().commit();
     }
 
     private Query getQueryListadoRegalos(int idCriaturita){

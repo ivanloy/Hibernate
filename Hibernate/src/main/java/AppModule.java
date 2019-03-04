@@ -1,9 +1,5 @@
-import boundaries.ListarCriaturitasBoundary;
-import boundaries.ListarRegalosBoundary;
-import boundaries.ModificarCriaturitaBoundary;
-import casosdeuso.ModificarCriaturita;
-import casosdeuso.ListarCriaturitas;
-import casosdeuso.ListarRegalos;
+import boundaries.*;
+import casosdeuso.*;
 import com.google.inject.AbstractModule;
 import entidades.gateway.CriaturitasEntityGateway;
 import entidades.gateway.RegalosEntityGateway;
@@ -18,5 +14,8 @@ public class AppModule extends AbstractModule {
         bind(RegalosEntityGateway.class).to(RegalosDAO.class);
         bind(ListarRegalosBoundary.class).to(ListarRegalos.class);
         bind(ModificarCriaturitaBoundary.class).to(ModificarCriaturita.class);
+        bind(CrearCriaturitaBoundary.class).to(CrearCriaturita.class);
+        bind(CrearRegaloBoundary.class).to(CrearRegalo.class);
+        bind(BorrarRegaloBoundary.class).to(BorrarRegalo.class);
     }
 }

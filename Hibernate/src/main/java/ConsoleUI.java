@@ -1,7 +1,4 @@
-import boundaries.ListarCriaturitasBoundary;
-import boundaries.ListarRegalosBoundary;
-import boundaries.ModificarCriaturitaBoundary;
-import boundaries.ModificarRegaloBoundary;
+import boundaries.*;
 import entidades.Criaturita;
 import entidades.Regalo;
 
@@ -12,12 +9,14 @@ public class ConsoleUI {
 
     public enum OptionsEnum{
         EXIT, LISTAR_CRIATURITAS, LISTAR_REGALOS, CRIATURITA_CON_REGALOS, QUITAR_REGALO_A_CRIATURITA,
-        NOT_EXISTENT_OPTION
+        ASIGNAR_REGALO_A_CRIATURITA, CREAR_CRIATURITA, CREAR_REGALO, NOT_EXISTENT_OPTION
     }
 
     private ListarCriaturitasBoundary listarCriaturitasBoundary;
     private ListarRegalosBoundary listarRegalosBoundary;
     private ModificarCriaturitaBoundary modificarCriaturitaBoundary;
+    private CrearCriaturitaBoundary crearCriaturitaBoundary;
+    private CrearRegaloBoundary crearRegaloBoundary;
 
     private Scanner scanner;
     private OptionsEnum option;
@@ -74,6 +73,15 @@ public class ConsoleUI {
             case QUITAR_REGALO_A_CRIATURITA:
                 quitarRegaloACriaturita();
                 break;
+            case ASIGNAR_REGALO_A_CRIATURITA:
+                asignarRegaloACriaturita();
+                break;
+            case CREAR_CRIATURITA:
+                crearCriaturita();
+                break;
+            case CREAR_REGALO:
+                crearRegalo();
+                break;
             default:
                 break;
         }
@@ -86,8 +94,26 @@ public class ConsoleUI {
                 "1 - Listar Criaturitas\n" +
                 "2 - Listar Regalos\n" +
                 "3 - Criaturita con Regalos\n" +
-                "4 - Quitar regalo a criaturita"
+                "4 - Quitar regalo a criaturita\n" +
+                "5 - Asignar regalo a criaturita\n" +
+                "6 - Crear criaturita\n" +
+                "7 - Crear regalo\n"
         );
+    }
+
+
+    private void crearCriaturita() {
+        System.out.println("Con que nombre?");
+        String nombre = scanner.nextLine();
+        Criaturita criaturita = new Criaturita(nombre);
+        crearCriaturitaBoundary.crearCriaturita(criaturita);
+    }
+
+    private void crearRegalo() {
+        System.out.println("Con que denominacion?");
+        String denominacion = scanner.nextLine();
+        Regalo regalo = new Regalo(denominacion);
+        crearRegaloBoundary.crearRegalo(regalo);
     }
 
     private void listarCriaturitas() {
@@ -116,6 +142,20 @@ public class ConsoleUI {
         }catch (NumberFormatException e){}
 
     }
+
+
+    private void asignarRegaloACriaturita() {
+        listarRegalos();
+        System.out.println("Que regalito, surmano?");
+        try {
+            int idRegalo = readIntAbsoluteValue();
+            listarCriaturitas();
+            System.out.println("A kien, surman ito?");
+            int idCriaturita = readIntAbsoluteValue();
+            modificarCriaturitaBoundary.asignarRegalo(idCriaturita, idRegalo);
+        }catch (NumberFormatException e){}
+    }
+
     private void listarRegalos(int idCriaturita) {
         for(Regalo r : listarRegalosBoundary.getListadoRegalos(idCriaturita))
             System.out.println(r.toString());
@@ -134,6 +174,16 @@ public class ConsoleUI {
     @Inject
     public void setModificarRegaloBoundary(ModificarCriaturitaBoundary modificarCriaturitaBoundary){
         this.modificarCriaturitaBoundary = modificarCriaturitaBoundary;
+    }
+
+    @Inject
+    public void setCrearCriaturitaBoundary(CrearCriaturitaBoundary crearCriaturitaBoundary){
+        this.crearCriaturitaBoundary = crearCriaturitaBoundary;
+    }
+
+    @Inject
+    public void setCrearRegaloBoundary(CrearRegaloBoundary crearRegaloBoundary){
+        this.crearRegaloBoundary = crearRegaloBoundary;
     }
 }
 
